@@ -96,7 +96,7 @@ Getting up and running:
 
 Mod | Version | Why
 --- | --- | ---
-[Metamod:Source](https://www.metamodsource.net/downloads.php?branch=dev) | `2.0.0-1402` | Sits between the Game and the Engine, and allows plugins to intercept calls that flow between
+[Metamod:Source](https://www.metamodsource.net/downloads.php?branch=dev) | `2.0.0-1407` | Sits between the Game and the Engine, and allows plugins to intercept calls that flow between
 [CounterStrikeSharp](https://github.com/roflmuffin/CounterStrikeSharp) | `1.0.370` | Attempts to implement a .NET Core scripting layer on top of a Metamod Source Plugin, allowing developers to create plugins that interact with the game server in a modern language (C#)
 [MultiAddonManager](https://github.com/Source2ZE/MultiAddonManager) | `1.5` | Allows you to use multiple workshop addons at once and have clients download them [How?](#i-want-to-permanently-enable-multi-addon-manager)
 [ServerListPlayersFix](https://github.com/Source2ZE/ServerListPlayersFix) | `1.0.7` | Fixes players not showing up in the server browser
@@ -248,23 +248,23 @@ gcloud compute firewall-rules create source \
 
 Ensure you have all the settings for your [environment variables](#environment-variables).
 
-If you have issues with the server not handling load, you may want to consider [compute-optimized](https://cloud.google.com/compute/vm-instance-pricing#compute-optimized_machine_types) machine `c2-standard-4`.
+If you have issues with the server not handling load, you may want to consider [compute-optimized](https://cloud.google.com/compute/vm-instance-pricing#compute-optimized_machine_types) machine `c4-standard-4`.
 
 ```
 gcloud beta compute instances create <instance-name> \
 --maintenance-policy=TERMINATE \
 --project=<project> \
 --zone=australia-southeast1-c \
---machine-type=n2-standard-2 \
+--machine-type=c4-standard-4 \
 --network-tier=PREMIUM \
 --metadata=RCON_PASSWORD=changeme,STEAM_ACCOUNT=changeme,API_KEY=changeme,DUCK_DOMAIN=changeme,DUCK_TOKEN=changeme,startup-script="echo \"Delaying for 30 seconds...\" && sleep 30 && cd / && /gcp.sh" \
 --no-restart-on-failure \
 --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/compute.readonly,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append \
 --tags=source \
---image-family=ubuntu-2204-lts \
+--image-family=ubuntu-2404-lts-amd64 \
 --image-project=ubuntu-os-cloud \
---boot-disk-size=60GB \
---boot-disk-type=pd-standard \
+--boot-disk-size=100GB \
+--boot-disk-type=hyperdisk-balanced \
 --boot-disk-device-name=<instance-name>
 ```
 
